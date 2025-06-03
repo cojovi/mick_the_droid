@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/svg+xml" href="/vite.svg" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>AI Code Reviewer</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
+    <script>
+      tailwind.config = {
+        darkMode: 'class',
+        theme: {
+          extend: {
+            fontFamily: {
+              pixel: ["'Press Start 2P'", 'monospace'],
+            },
+            colors: {
+              'aurora-navy': '#1B1641',
+              'aurora-deep-purple': '#3C249C',
+              'aurora-vivid-purple': '#832AD0',
+              'aurora-mint': '#47FFBF',
+              'aurora-aqua': '#35DECE',
+              'aurora-blue': '#2D9ABB',
+            },
+            boxShadow: {
+              'neon-mint': '0 0 16px #47FFBF, 0 0 32px #47FFBF',
+              'neon-purple': '0 0 16px #832AD0, 0 0 32px #832AD0',
+            },
+          }
+        }
+      }
+    </script>
+  <script type="importmap">
+{
+  "imports": {
+    "react/": "https://esm.sh/react@^19.1.0/",
+    "react": "https://esm.sh/react@^19.1.0",
+    "react-dom/": "https://esm.sh/react-dom@^19.1.0/",
+    "@google/genai": "https://esm.sh/@google/genai@^1.0.1"
+  }
+}
+</script>
+</head>
+  <body>
+    <div id="root"></div>
+    <script type="module" src="/index.tsx"></script>
+  </body>
+</html>
+<link rel="stylesheet" href="index.css">
+<script src="index.tsx" type="module"></script>
