@@ -4,48 +4,216 @@
     <meta charset="UTF-8" />
     <link rel="icon" type="image/svg+xml" href="/vite.svg" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>AI Code Reviewer</title>
+    <title>Fallout Code Terminal - AI Code Reviewer</title>
     <script src="https://cdn.tailwindcss.com"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
+    
+    <!-- Fallout-inspired fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Share+Tech+Mono&family=Press+Start+2P&display=swap" rel="stylesheet">
+    
     <script>
       tailwind.config = {
         darkMode: 'class',
         theme: {
           extend: {
             fontFamily: {
-              pixel: ["'Press Start 2P'", 'monospace'],
+              'fallout-heading': ['Orbitron', 'sans-serif'],
+              'fallout-mono': ['Share Tech Mono', 'monospace'],
+              'fallout-pixel': ['Press Start 2P', 'monospace'],
             },
             colors: {
-              'aurora-navy': '#1B1641',
-              'aurora-deep-purple': '#3C249C',
-              'aurora-vivid-purple': '#832AD0',
-              'aurora-mint': '#47FFBF',
-              'aurora-aqua': '#35DECE',
-              'aurora-blue': '#2D9ABB',
+              // Fallout color palette
+              'vault-blue': '#003366',
+              'vault-blue-light': '#0066CC',
+              'vault-blue-dark': '#001A33',
+              'industrial-olive': '#556B2F',
+              'industrial-olive-light': '#6B8E23',
+              'industrial-olive-dark': '#3D4F1F',
+              'fallout-brass': '#B8860B',
+              'fallout-brass-light': '#DAA520',
+              'fallout-brass-dark': '#8B6914',
+              'warning-yellow': '#F9D423',
+              'warning-yellow-light': '#FFE55C',
+              'warning-yellow-dark': '#E6C200',
+              'copper-green': '#2E8B57',
+              'copper-green-light': '#3CB371',
+              'copper-green-dark': '#1F5F3F',
+              'screen-green': '#7CFF70',
+              'screen-green-light': '#9FFF99',
+              'screen-green-dark': '#5CE650',
+              'fallout-charcoal': '#0F0F0F',
+              'fallout-gray': '#3D3D3D',
+              'fallout-gray-light': '#555555',
+              'fallout-tan': '#C2B280',
+              'fallout-tan-light': '#D4C49A',
+              'fallout-tan-dark': '#A89B6D',
             },
             boxShadow: {
-              'neon-mint': '0 0 16px #47FFBF, 0 0 32px #47FFBF',
-              'neon-purple': '0 0 16px #832AD0, 0 0 32px #832AD0',
+              'terminal': '0 0 20px rgba(124, 255, 112, 0.3), inset 0 0 20px rgba(0, 0, 0, 0.5)',
+              'metal': 'inset 0 2px 4px rgba(255, 255, 255, 0.1), inset 0 -2px 4px rgba(0, 0, 0, 0.3)',
+              'vault-door': '0 8px 32px rgba(0, 51, 102, 0.4), inset 0 1px 0 rgba(255, 255, 255, 0.1)',
+              'glow-yellow': '0 0 20px rgba(249, 212, 35, 0.4)',
+              'glow-green': '0 0 20px rgba(124, 255, 112, 0.4)',
             },
+            backgroundImage: {
+              'metal-texture': 'linear-gradient(45deg, #3D3D3D 25%, transparent 25%), linear-gradient(-45deg, #3D3D3D 25%, transparent 25%), linear-gradient(45deg, transparent 75%, #3D3D3D 75%), linear-gradient(-45deg, transparent 75%, #3D3D3D 75%)',
+              'vault-gradient': 'linear-gradient(135deg, #003366, #001A33, #0066CC)',
+              'rust-texture': 'radial-gradient(circle at 20% 80%, #8B4513 0%, transparent 50%), radial-gradient(circle at 80% 20%, #A0522D 0%, transparent 50%), radial-gradient(circle at 40% 40%, #CD853F 0%, transparent 50%)',
+            },
+            backgroundSize: {
+              'metal': '20px 20px',
+            },
+            animation: {
+              'scan-line': 'scan-line 2s linear infinite',
+              'terminal-blink': 'terminal-blink 1s ease-in-out infinite alternate',
+              'gear-rotate': 'gear-rotate 3s linear infinite',
+              'flicker': 'flicker 0.15s ease-in-out infinite alternate',
+            },
+            keyframes: {
+              'scan-line': {
+                '0%': { transform: 'translateY(-100%)' },
+                '100%': { transform: 'translateY(100vh)' }
+              },
+              'terminal-blink': {
+                '0%, 50%': { opacity: '1' },
+                '51%, 100%': { opacity: '0.7' }
+              },
+              'gear-rotate': {
+                '0%': { transform: 'rotate(0deg)' },
+                '100%': { transform: 'rotate(360deg)' }
+              },
+              'flicker': {
+                '0%': { opacity: '1' },
+                '100%': { opacity: '0.95' }
+              }
+            }
           }
         }
       }
     </script>
-  <script type="importmap">
-{
-  "imports": {
-    "react/": "https://esm.sh/react@^19.1.0/",
-    "react": "https://esm.sh/react@^19.1.0",
-    "react-dom/": "https://esm.sh/react-dom@^19.1.0/",
-    "@google/genai": "https://esm.sh/@google/genai@^1.0.1"
-  }
-}
-</script>
-</head>
-  <body>
+    
+    <style>
+      /* Custom CSS for Fallout theme effects */
+      .scan-lines::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background: repeating-linear-gradient(
+          0deg,
+          transparent,
+          transparent 2px,
+          rgba(124, 255, 112, 0.03) 2px,
+          rgba(124, 255, 112, 0.03) 4px
+        );
+        pointer-events: none;
+        z-index: 1000;
+      }
+      
+      .terminal-text {
+        text-shadow: 0 0 5px currentColor;
+      }
+      
+      .metal-panel {
+        background: linear-gradient(135deg, 
+          #4A4A4A 0%,
+          #3D3D3D 25%,
+          #2A2A2A 50%,
+          #3D3D3D 75%,
+          #4A4A4A 100%);
+        border: 2px solid #5A5A5A;
+        position: relative;
+      }
+      
+      .metal-panel::before {
+        content: '';
+        position: absolute;
+        top: 4px;
+        left: 4px;
+        right: 4px;
+        bottom: 4px;
+        border: 1px solid rgba(255, 255, 255, 0.1);
+        pointer-events: none;
+      }
+      
+      .rivet {
+        position: relative;
+      }
+      
+      .rivet::after {
+        content: '';
+        position: absolute;
+        width: 8px;
+        height: 8px;
+        background: radial-gradient(circle, #666 30%, #333 70%);
+        border-radius: 50%;
+        box-shadow: inset 0 1px 2px rgba(255, 255, 255, 0.3);
+      }
+      
+      .btn-fallout {
+        background: linear-gradient(145deg, #4A4A4A, #2A2A2A);
+        border: 2px solid #5A5A5A;
+        position: relative;
+        transition: all 0.15s ease;
+      }
+      
+      .btn-fallout:hover {
+        background: linear-gradient(145deg, #5A5A5A, #3A3A3A);
+        box-shadow: 0 0 15px rgba(249, 212, 35, 0.3);
+      }
+      
+      .btn-fallout:active {
+        background: linear-gradient(145deg, #2A2A2A, #4A4A4A);
+        transform: translateY(1px);
+      }
+      
+      .vault-door {
+        border-radius: 50px;
+        background: radial-gradient(circle at center, #003366, #001A33);
+        border: 4px solid #0066CC;
+        position: relative;
+        overflow: hidden;
+      }
+      
+      .vault-door::before {
+        content: '';
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        width: 80%;
+        height: 80%;
+        border: 2px dashed rgba(102, 204, 255, 0.3);
+        border-radius: 50%;
+        transform: translate(-50%, -50%);
+      }
+      
+      .loading-gear {
+        width: 40px;
+        height: 40px;
+        border: 4px solid #3D3D3D;
+        border-top: 4px solid #F9D423;
+        border-radius: 50%;
+        position: relative;
+      }
+      
+      .loading-gear::before {
+        content: '';
+        position: absolute;
+        top: -4px;
+        left: -4px;
+        right: -4px;
+        bottom: -4px;
+        border: 2px solid transparent;
+        border-top: 2px solid rgba(249, 212, 35, 0.3);
+        border-radius: 50%;
+      }
+    </style>
+  </head>
+  <body class="fallout-theme">
     <div id="root"></div>
     <script type="module" src="/index.tsx"></script>
   </body>
 </html>
-<link rel="stylesheet" href="index.css">
-<script src="index.tsx" type="module"></script>
