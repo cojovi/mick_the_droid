@@ -2,67 +2,75 @@ import React from 'react';
 
 export const Header: React.FC = () => {
   return (
-    <header className="relative z-20 bg-gradient-to-r from-vault-blue via-vault-blue-dark to-industrial-olive p-6 shadow-vault-door border-b-4 border-fallout-brass">
-      <div className="metal-panel p-6 rounded-lg mx-auto max-w-4xl">
-        <div className="flex flex-col items-center space-y-4">
-          {/* Vault-Tec Logo ASCII */}
-          <div className="text-center">
-            <pre className="font-fallout-pixel text-warning-yellow text-sm leading-none terminal-text">
-{`██╗   ██╗ █████╗ ██╗   ██╗██╗  ████████╗
-██║   ██║██╔══██╗██║   ██║██║  ╚══██╔══╝
-██║   ██║███████║██║   ██║██║     ██║   
-╚██╗ ██╔╝██╔══██║██║   ██║██║     ██║   
- ╚████╔╝ ██║  ██║╚██████╔╝███████╗██║   
-  ╚═══╝  ╚═╝  ╚═╝ ╚═════╝ ╚══════╝╚═╝`}
-            </pre>
+    <header className="relative z-20 border-b border-primary-500/20">
+      <div className="glass-effect">
+        <div className="max-w-7xl mx-auto px-6 py-6">
+          <div className="flex items-center justify-between">
+            {/* Logo */}
+            <div className="flex items-center space-x-3">
+              <div className="w-8 h-8 bg-gradient-to-r from-primary-400 to-accent-400 rounded-lg flex items-center justify-center">
+                <svg className="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4" />
+                </svg>
+              </div>
+              <div>
+                <h1 className="text-xl font-bold bg-gradient-to-r from-primary-400 to-accent-400 bg-clip-text text-transparent">
+                  CodeLens AI
+                </h1>
+                <p className="text-xs text-gray-400">Intelligent Code Analysis</p>
+              </div>
+            </div>
+
+            {/* Navigation */}
+            <nav className="hidden md:flex items-center space-x-8">
+              <a href="#" className="text-gray-300 hover:text-primary-400 transition-colors text-sm font-medium">
+                Home
+              </a>
+              <a href="#" className="text-gray-300 hover:text-primary-400 transition-colors text-sm font-medium">
+                Features
+              </a>
+              <a href="#" className="text-gray-300 hover:text-primary-400 transition-colors text-sm font-medium">
+                About
+              </a>
+            </nav>
+
+            {/* CTA Button */}
+            <div className="hidden md:block">
+              <button className="px-4 py-2 bg-gradient-to-r from-primary-500 to-accent-500 rounded-lg text-white text-sm font-medium hover:from-primary-600 hover:to-accent-600 transition-all duration-200 shadow-glow">
+                Get Started
+              </button>
+            </div>
           </div>
-          
-          {/* Main Title */}
-          <div className="text-center">
-            <h1 className="text-3xl md:text-5xl font-fallout-heading font-black text-warning-yellow terminal-text mb-2">
-              FALLOUT CODE TERMINAL
+
+          {/* Main Heading */}
+          <div className="mt-12 mb-8 text-center">
+            <h1 className="text-4xl md:text-6xl font-bold mb-4">
+              <span className="text-white">INTELLIGENT</span>{' '}
+              <span className="bg-gradient-to-r from-primary-400 to-accent-400 bg-clip-text text-transparent text-glow">
+                CODE REVIEW
+              </span>
             </h1>
-            <div className="flex items-center justify-center space-x-2 text-lg md:text-xl text-screen-green font-fallout-mono">
-              <div className="w-2 h-2 bg-screen-green rounded-full animate-terminal-blink"></div>
-              <span className="terminal-text">AI-POWERED CODE ANALYSIS SYSTEM</span>
-              <div className="w-2 h-2 bg-screen-green rounded-full animate-terminal-blink"></div>
-            </div>
-          </div>
-
-          {/* Status Display */}
-          <div className="bg-fallout-charcoal p-4 rounded border-2 border-vault-blue shadow-terminal w-full max-w-2xl">
-            <div className="grid grid-cols-3 gap-4 text-center text-sm font-fallout-pixel">
-              <div>
-                <div className="text-copper-green terminal-text">SYSTEMS</div>
-                <div className="text-screen-green">ONLINE</div>
+            <p className="text-lg md:text-xl text-gray-300 max-w-2xl mx-auto">
+              Get instant, comprehensive feedback on your code with AI-powered analysis and suggestions
+            </p>
+            
+            {/* Status Bar */}
+            <div className="mt-8 flex items-center justify-center space-x-6 text-sm">
+              <div className="flex items-center space-x-2">
+                <div className="w-2 h-2 bg-green-400 rounded-full"></div>
+                <span className="text-gray-400">AI Online</span>
               </div>
-              <div>
-                <div className="text-copper-green terminal-text">AI CORE</div>
-                <div className="text-screen-green">ACTIVE</div>
+              <div className="flex items-center space-x-2">
+                <div className="w-2 h-2 bg-primary-400 rounded-full animate-pulse"></div>
+                <span className="text-gray-400">Ready for Analysis</span>
               </div>
-              <div>
-                <div className="text-copper-green terminal-text">SECURITY</div>
-                <div className="text-warning-yellow animate-flicker">SECURE</div>
+              <div className="flex items-center space-x-2">
+                <div className="w-2 h-2 bg-accent-400 rounded-full"></div>
+                <span className="text-gray-400">17+ Languages Supported</span>
               </div>
             </div>
-          </div>
-
-          {/* Flavor Text */}
-          <div className="text-center">
-            <p className="text-fallout-tan font-fallout-mono text-sm md:text-base">
-              "Better Living Through Superior Code Quality"
-            </p>
-            <p className="text-copper-green text-xs mt-1 font-fallout-pixel">
-              - Vault-Tec Quality Assurance Division
-            </p>
           </div>
         </div>
-
-        {/* Decorative Elements */}
-        <div className="absolute top-2 left-2 w-4 h-4 bg-warning-yellow rounded-full animate-flicker opacity-60"></div>
-        <div className="absolute top-2 right-2 w-4 h-4 bg-screen-green rounded-full animate-terminal-blink opacity-60"></div>
-        <div className="absolute bottom-2 left-2 w-4 h-4 bg-copper-green rounded-full opacity-60"></div>
-        <div className="absolute bottom-2 right-2 w-4 h-4 bg-vault-blue-light rounded-full animate-pulse opacity-60"></div>
       </div>
     </header>
   );

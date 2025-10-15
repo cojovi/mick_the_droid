@@ -41,100 +41,63 @@ const App: React.FC = () => {
   }, [code, selectedLanguage]);
 
   return (
-    <div className="min-h-screen bg-fallout-charcoal text-fallout-tan font-fallout-mono relative overflow-hidden scan-lines">
-      {/* Background ambient effects */}
-      <div className="absolute inset-0 bg-gradient-to-br from-fallout-charcoal via-vault-blue-dark to-fallout-charcoal opacity-50"></div>
-      
-      {/* Scan line animation */}
-      <div className="absolute inset-0 pointer-events-none">
-        <div className="absolute w-full h-0.5 bg-gradient-to-r from-transparent via-screen-green to-transparent opacity-30 animate-scan-line"></div>
-      </div>
+    <div className="min-h-screen bg-dark-950 text-white relative overflow-hidden">
+      {/* Background gradient effects */}
+      <div className="fixed inset-0 bg-gradient-to-br from-dark-950 via-dark-900 to-dark-950"></div>
+      <div className="fixed top-20 left-20 w-96 h-96 bg-primary-500/10 rounded-full blur-3xl animate-pulse-slow"></div>
+      <div className="fixed bottom-20 right-20 w-80 h-80 bg-accent-500/10 rounded-full blur-3xl animate-pulse-slow" style={{ animationDelay: '1s' }}></div>
+      <div className="fixed top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-64 h-64 bg-primary-400/5 rounded-full blur-3xl animate-float"></div>
 
       <Header />
       
-      <main className="relative z-10 flex flex-col lg:flex-row gap-6 p-6 max-w-7xl mx-auto">
-        {/* Input Panel - Styled as Vault-Tec Terminal */}
-        <div className="lg:w-1/2 space-y-6">
-          <div className="metal-panel p-6 rounded-lg shadow-vault-door rivet">
-            <div className="rivet::after top-4 left-4"></div>
-            <div className="rivet::after top-4 right-4"></div>
-            <div className="rivet::after bottom-4 left-4"></div>
-            <div className="rivet::after bottom-4 right-4"></div>
-            
-            <div className="bg-fallout-charcoal p-4 rounded border-2 border-vault-blue shadow-terminal">
-              <div className="flex items-center mb-4 text-screen-green text-sm font-fallout-pixel">
-                <div className="w-2 h-2 bg-screen-green rounded-full mr-2 animate-terminal-blink"></div>
-                <span>VAULT-TEC TERMINAL v2.1.7</span>
+      <main className="relative z-10 max-w-7xl mx-auto px-6 py-8">
+        <div className="grid lg:grid-cols-2 gap-8">
+          {/* Input Panel */}
+          <div className="space-y-6">
+            <div className="gradient-border p-6 shadow-card">
+              <div className="space-y-4">
+                <div className="flex items-center justify-between mb-4">
+                  <h2 className="text-lg font-semibold text-white">Code Input</h2>
+                  <div className="flex items-center space-x-2">
+                    <div className="w-2 h-2 bg-primary-400 rounded-full animate-pulse"></div>
+                    <span className="text-xs text-gray-400 font-mono">READY</span>
+                  </div>
+                </div>
+                <CodeInput value={code} onChange={setCode} />
               </div>
-              
-              <CodeInput value={code} onChange={setCode} />
+            </div>
+
+            <div className="gradient-border p-6 shadow-card">
+              <div className="space-y-4">
+                <LanguageSelector
+                  languages={SUPPORTED_LANGUAGES}
+                  selectedLanguage={selectedLanguage}
+                  onChange={setSelectedLanguage}
+                />
+                <SubmitButton onClick={handleReviewCode} isLoading={isLoading} />
+                {isLoading && <LoadingSpinner />}
+                {error && <ErrorMessage message={error} />}
+              </div>
             </div>
           </div>
 
-          <div className="metal-panel p-4 rounded-lg">
-            <div className="mb-4">
-              <label className="block text-warning-yellow font-fallout-heading text-sm font-bold mb-2 terminal-text">
-                PROGRAMMING LANGUAGE
-              </label>
-              <LanguageSelector
-                languages={SUPPORTED_LANGUAGES}
-                selectedLanguage={selectedLanguage}
-                onChange={setSelectedLanguage}
-              />
-            </div>
-            
-            <SubmitButton onClick={handleReviewCode} isLoading={isLoading} />
-            
-            {isLoading && <LoadingSpinner />}
-            {error && <ErrorMessage message={error} />}
-          </div>
-        </div>
-
-        {/* Output Panel - Styled as Data Processing Unit */}
-        <div className="lg:w-1/2">
-          <div className="metal-panel p-6 rounded-lg shadow-vault-door h-full rivet">
-            <div className="rivet::after top-4 left-4"></div>
-            <div className="rivet::after top-4 right-4"></div>
-            <div className="rivet::after bottom-4 left-4"></div>
-            <div className="rivet::after bottom-4 right-4"></div>
-            
-            <div className="bg-fallout-charcoal p-4 rounded border-2 border-copper-green shadow-terminal h-full">
-              <div className="flex items-center justify-between mb-4 text-copper-green text-sm font-fallout-pixel">
-                <div className="flex items-center">
-                  <div className="w-2 h-2 bg-copper-green rounded-full mr-2 animate-terminal-blink"></div>
-                  <span>DATA ANALYSIS UNIT</span>
-                </div>
-                <div className="flex space-x-1">
-                  <div className="w-2 h-2 bg-warning-yellow rounded-full animate-flicker"></div>
-                  <div className="w-2 h-2 bg-screen-green rounded-full"></div>
-                  <div className="w-2 h-2 bg-copper-green rounded-full"></div>
+          {/* Output Panel */}
+          <div className="h-full">
+            <div className="gradient-border p-6 shadow-card h-full min-h-[600px]">
+              <div className="flex items-center justify-between mb-4">
+                <h2 className="text-lg font-semibold text-white">Analysis Results</h2>
+                <div className="flex items-center space-x-2">
+                  <div className={`w-2 h-2 rounded-full ${reviewFeedback ? 'bg-green-400' : isLoading ? 'bg-yellow-400 animate-pulse' : 'bg-gray-600'}`}></div>
+                  <span className="text-xs text-gray-400 font-mono">
+                    {reviewFeedback ? 'COMPLETE' : isLoading ? 'PROCESSING' : 'WAITING'}
+                  </span>
                 </div>
               </div>
-              
               <ReviewOutput feedback={reviewFeedback} isLoading={isLoading} />
             </div>
           </div>
         </div>
       </main>
-
-      {/* Floating ambient elements */}
-      <div className="absolute top-20 right-20 w-32 h-32 bg-vault-blue opacity-10 rounded-full blur-3xl animate-pulse"></div>
-      <div className="absolute bottom-20 left-20 w-24 h-24 bg-warning-yellow opacity-10 rounded-full blur-3xl animate-pulse"></div>
-      <div className="absolute top-1/2 left-1/4 w-16 h-16 bg-copper-green opacity-10 rounded-full blur-3xl animate-pulse"></div>
-
-      {/* Vault Boy ASCII Art */}
-      <div className="absolute bottom-4 right-4 z-20">
-        <pre className="font-fallout-pixel text-screen-green text-xs leading-none terminal-text opacity-70">
-{`    ___
-   /   \\
-  | (o) |
-   \\___/
-   _|_|_
-  |VAULT|
-  |-----|
-   |_|_|`}
-        </pre>
-      </div>
     </div>
   );
 };

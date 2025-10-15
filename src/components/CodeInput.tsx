@@ -7,42 +7,43 @@ interface CodeInputProps {
 
 export const CodeInput: React.FC<CodeInputProps> = ({ value, onChange }) => {
   return (
-    <div className="relative">
-      <div className="mb-2 flex items-center justify-between">
-        <label className="text-screen-green font-fallout-pixel text-xs terminal-text">
-          CODE INPUT BUFFER
+    <div className="space-y-3">
+      <div className="flex items-center justify-between">
+        <label className="text-sm font-medium text-gray-300">
+          Code Editor
         </label>
-        <div className="flex items-center space-x-2 text-xs">
-          <span className="text-copper-green font-fallout-mono">
-            CHARS: {value.length}
-          </span>
-          <div className="w-1 h-1 bg-screen-green rounded-full animate-terminal-blink"></div>
+        <div className="text-xs text-gray-500 font-mono">
+          {value.length.toLocaleString()} characters
         </div>
       </div>
       
-      <textarea
-        value={value}
-        onChange={(e) => onChange(e.target.value)}
-        placeholder="// PASTE YOUR CODE FOR ANALYSIS...
-// VAULT-TEC RECOMMENDS PROPER DOCUMENTATION
-// FOR OPTIMAL WASTELAND SURVIVAL"
-        className="w-full h-72 p-4 font-fallout-mono text-sm 
-                   bg-black text-screen-green 
-                   border-2 border-copper-green rounded 
-                   shadow-terminal resize-none
-                   focus:border-warning-yellow focus:shadow-glow-yellow focus:outline-none
-                   placeholder-copper-green placeholder-opacity-50
-                   transition-all duration-200"
-        spellCheck="false"
-        style={{
-          textShadow: '0 0 5px currentColor',
-          caretColor: '#7CFF70'
-        }}
-      />
-      
-      {/* Terminal cursor effect */}
-      <div className="absolute bottom-4 right-4 text-screen-green animate-terminal-blink font-fallout-mono text-sm">
-        █
+      <div className="relative">
+        <textarea
+          value={value}
+          onChange={(e) => onChange(e.target.value)}
+          placeholder="// Paste your code here for analysis
+// The AI will review your code for bugs, performance, security, and best practices
+
+function example() {
+  return 'Hello World!';
+}"
+          className="w-full h-80 p-4 font-mono text-sm 
+                     code-editor text-gray-100 
+                     border border-primary-500/30 rounded-lg 
+                     focus:border-primary-400 focus:ring-2 focus:ring-primary-400/20 focus:outline-none
+                     placeholder-gray-500 resize-none
+                     transition-all duration-200"
+          spellCheck="false"
+        />
+        
+        {/* Line numbers effect */}
+        <div className="absolute top-4 left-2 text-xs text-gray-600 font-mono leading-5 pointer-events-none select-none">
+          {Array.from({ length: Math.max(20, value.split('\n').length) }, (_, i) => (
+            <div key={i} className="h-5 flex items-center">
+              {i + 1}
+            </div>
+          ))}
+        </div>
       </div>
     </div>
   );

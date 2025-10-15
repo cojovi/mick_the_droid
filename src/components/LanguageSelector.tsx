@@ -13,36 +13,42 @@ export const LanguageSelector: React.FC<LanguageSelectorProps> = ({
   onChange 
 }) => {
   return (
-    <div className="relative">
-      <select
-        value={selectedLanguage}
-        onChange={(e) => onChange(e.target.value)}
-        className="w-full p-3 bg-fallout-charcoal text-warning-yellow 
-                   border-2 border-industrial-olive rounded 
-                   shadow-metal font-fallout-mono text-sm
-                   focus:border-warning-yellow focus:shadow-glow-yellow focus:outline-none
-                   appearance-none cursor-pointer
-                   transition-all duration-200"
-        style={{ textShadow: '0 0 3px currentColor' }}
-      >
-        {languages.map((lang) => (
-          <option 
-            key={lang.value} 
-            value={lang.value}
-            className="bg-fallout-charcoal text-warning-yellow"
-          >
-            {lang.label.toUpperCase()}
-          </option>
-        ))}
-      </select>
+    <div className="space-y-3">
+      <label className="text-sm font-medium text-gray-300">
+        Programming Language
+      </label>
       
-      {/* Custom dropdown arrow */}
-      <div className="absolute right-3 top-1/2 transform -translate-y-1/2 pointer-events-none">
-        <div className="w-0 h-0 border-l-4 border-r-4 border-t-6 border-l-transparent border-r-transparent border-t-warning-yellow"></div>
+      <div className="relative">
+        <select
+          value={selectedLanguage}
+          onChange={(e) => onChange(e.target.value)}
+          className="w-full p-3 bg-dark-900 text-gray-100 
+                     border border-primary-500/30 rounded-lg 
+                     focus:border-primary-400 focus:ring-2 focus:ring-primary-400/20 focus:outline-none
+                     appearance-none cursor-pointer font-medium
+                     transition-all duration-200"
+        >
+          {languages.map((lang) => (
+            <option 
+              key={lang.value} 
+              value={lang.value}
+              className="bg-dark-900 text-gray-100"
+            >
+              {lang.label}
+            </option>
+          ))}
+        </select>
+        
+        {/* Custom dropdown arrow */}
+        <div className="absolute right-3 top-1/2 transform -translate-y-1/2 pointer-events-none">
+          <svg className="w-4 h-4 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
+          </svg>
+        </div>
+        
+        {/* Status indicator */}
+        <div className="absolute left-3 top-1/2 transform -translate-y-1/2 w-2 h-2 bg-primary-400 rounded-full"></div>
       </div>
-      
-      {/* Status indicator */}
-      <div className="absolute left-3 top-1/2 transform -translate-y-1/2 w-2 h-2 bg-screen-green rounded-full animate-terminal-blink"></div>
     </div>
   );
 };
