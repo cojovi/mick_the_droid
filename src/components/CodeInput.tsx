@@ -28,7 +28,7 @@ function example() {
   return 'Hello World!';
 }"
           className="w-full h-80 p-4 font-mono text-sm 
-                     code-editor text-gray-100 
+                     code-editor text-gray-900 
                      border border-primary-500/30 rounded-lg 
                      focus:border-primary-400 focus:ring-2 focus:ring-primary-400/20 focus:outline-none
                      placeholder-gray-500 resize-none
