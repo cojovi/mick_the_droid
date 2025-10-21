@@ -28,11 +28,11 @@ function example() {
   return 'Hello World!';
 }"
           className="w-full h-80 p-4 font-mono text-sm 
-                     bg-slate-50 text-slate-900 
-                     border border-primary-500/30 rounded-lg 
+                     bg-white border border-primary-500/30 rounded-lg 
                      focus:border-primary-400 focus:ring-2 focus:ring-primary-400/20 focus:outline-none
                      placeholder-slate-500 resize-none
                      transition-all duration-200"
+          style={{ color: '#000000' }}
           spellCheck="false"
         />
         
